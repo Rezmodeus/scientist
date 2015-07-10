@@ -1,0 +1,26 @@
+{
+  "name": "scientist",
+  "version": "0.0.0",
+  "description": "dream game",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Rezmodeus/scientist.git"
+  },
+  "author": "Rezmodeus",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Rezmodeus/scientist/issues"
+  },
+  "homepage": "https://github.com/Rezmodeus/scientist",
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-remove-code": "^1.0.2",
+    "gulp-jshint": "^1.11.2",
+    "gulp-mocha": "^2.1.2",
+    "chai": "^3.0.0"
+  }
+}
