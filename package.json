@@ -21,6 +21,8 @@
     "gulp-remove-code": "^1.0.2",
     "gulp-jshint": "^1.11.2",
     "gulp-mocha": "^2.1.2",
-    "chai": "^3.0.0"
+    "chai": "^3.0.0",
+    "proxyquire": "^1.4.2",
+    "seed-random": "^2.2.0"
   }
 }

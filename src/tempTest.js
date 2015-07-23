@@ -17,7 +17,6 @@ module.exports = function() {
 	api._test.privateFunction = privateFunction;
 	api._test.publicFunction = publicFunction;
 	//endRemoveIf(production)
-	console.log('test:'+api._test.privateFunction());
 
     return api;
 }();

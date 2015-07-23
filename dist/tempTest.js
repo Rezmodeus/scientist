@@ -12,9 +12,7 @@ module.exports = function() {
 	var api = {
 		publicFunction:publicFunction
 	};
-	console.log('test:'+api._test.privateFunction());
-
-    return api;
+	return api;
 }();
 
 
