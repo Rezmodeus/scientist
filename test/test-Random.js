@@ -15,7 +15,7 @@ describe('Random',function(){
 		expect(random).to.be.ok;
 	});
 
-	it('getNextFunction values', function(){
+	it('should return that are unique', function(){
 		var f1 = random.getUniqueFunction('testA');
 		var f2 = random.getUniqueFunction('testB');
 		expect(f1()).to.not.equal(f2());
@@ -26,6 +26,14 @@ describe('Random',function(){
 		var f2 = random.getUniqueFunction('test');
 		expect(f1()).to.equal(f2());
 		expect(f1()).to.equal(f2());
+	});
+
+	it('should use world seed',function(){
+		random.setWorldSeed('a');
+		var f1 = random.getUniqueFunction('test');
+		random.setWorldSeed('b');
+		var f2 = random.getUniqueFunction('test');
+		expect(f1()).to.not.equal(f2());
 	});
 
 
