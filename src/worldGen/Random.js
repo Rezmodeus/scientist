@@ -2,19 +2,19 @@
 module.exports = function() {
 	'use strict';
 
-	var rand = global.seeder.getNextFunction();
-	function getNext(){
-		return rand();
+	var seedRandom = require('seed-random');
+	function getUniqueFunction(seed){
+		return seedRandom(seed);
 	}
 
 	var api = {
-		getNext:getNext
+		getUniqueFunction:getUniqueFunction
 	};
 	//removeIf(production)
 	api._test = {};
-	api._test.getNext = getNext;
+	api._test.getUniqueFunction = getUniqueFunction;
 	//endRemoveIf(production)
- 
+
 	return api;
 }();
 
