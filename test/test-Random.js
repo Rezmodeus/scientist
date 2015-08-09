@@ -8,7 +8,7 @@ describe('Random',function(){
 	
 	
 	beforeEach(function(){
-		random =  require('../src/worldGen/Random.js');
+		random = require('../src/worldGen/Random.js');
 	});
 
 	it('object', function(){
@@ -34,6 +34,15 @@ describe('Random',function(){
 		random.setWorldSeed('b');
 		var f2 = random.getUniqueFunction('test');
 		expect(f1()).to.not.equal(f2());
+	});
+
+	it('should keep world seed',function(){
+		var random2 = require('../src/worldGen/Random.js');
+		random.setWorldSeed('c');
+		random2.setWorldSeed('x');
+		var f1 = random.getUniqueFunction('test');
+		var f2 = random2.getUniqueFunction('test');
+		expect(f1()).to.equal(f2());
 	});
 
 
