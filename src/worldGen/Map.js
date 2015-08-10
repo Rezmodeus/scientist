@@ -1,7 +1,7 @@
 module.exports = function() {
 	'use strict';
 	var map = [];
-	var tileInspector = require('TileInspector');
+	var tileInspector = require('./TileInspector.js');
 
 	function add(mapPart){
 		addAtFreePosition(mapPart);
@@ -36,10 +36,28 @@ module.exports = function() {
 
 	}
 	function isPositionFree(pointXY,sizeXY){
+		var flooredPoint = getFloorPoint(pointXY);
+		var relativePoint = {x:0,y:0};
+		var area = map[0].length * map.length;
 		for(var y=0;y<sizeXY.y;y++){
 			for(var x=0;x<sizeXY.x;x++){
+				relativePoint.x = x + flooredPoint.x;
+				relativePoint.y = y + flooredPoint.y;
+				if(isInBounds(relativePoint)){
+					if(tileInspector.isTileEmpty(map[relativePoint.y][relativePoint.x])){
+						area--;
+					}else{
+						break;
+					}
+				}else{
+					area--;
+				}
 			}
 		}
+		return area==0;
+	}
+	function isInBounds(pointXY){
+		return pointXY.x<map[0].length && pointXY.x>0 && pointXY.y<map.length && pointXY.y>0;
 	}
 
 	function movePointByAngle(pointXY,angle){

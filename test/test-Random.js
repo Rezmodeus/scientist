@@ -8,7 +8,7 @@ describe('Random',function(){
 	
 	
 	beforeEach(function(){
-		random = require('../src/worldGen/Random.js');
+		random = require('../src/worldGen/Random.js')._test;
 	});
 
 	it('object', function(){
