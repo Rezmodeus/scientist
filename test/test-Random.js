@@ -2,13 +2,16 @@
 var chai = require('chai');
 var expect = chai.expect;
 
+var settings = require('./settings');
+var moduleName = settings.getSrcPath()+'Random.js';
+
 describe('Random',function(){
 
 	var random;
 	
 	
 	beforeEach(function(){
-		random = require('../src/worldGen/Random.js')._test;
+		random = require(moduleName)._test;
 	});
 
 	it('object', function(){
@@ -37,7 +40,7 @@ describe('Random',function(){
 	});
 
 	it('should keep world seed',function(){
-		var random2 = require('../src/worldGen/Random.js');
+		var random2 = require(moduleName)._test;
 		random.setWorldSeed('c');
 		random2.setWorldSeed('x');
 		var f1 = random.getUniqueFunction('test');
