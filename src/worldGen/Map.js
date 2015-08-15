@@ -2,12 +2,16 @@ module.exports = function() {
 	'use strict';
 	var map = [];
 	var tileInspector = require('./TileInspector.js');
+	var tileFactory = require('./TileFactory.js');
 
 	function add(mapPart){
 		addAtFreePosition(mapPart);
 	}
 	function get(){
 		return map;
+	}
+	function set(newMap){
+		map = newMap;
 	}
 
 	// private functions
@@ -20,9 +24,9 @@ module.exports = function() {
 
 	function findFreePosition(sizeXY){
 		var pointXY = {x:0,y:0};
-		var dir = getRandomAngle();
+		var angle = getRandomAngle();
 		while(!isPositionFree(pointXY,sizeXY)){
-			movePointByAngle(pointXY,dir);
+			movePointByAngle(pointXY,angle);
 		}
 		return pointXY;
 	}
@@ -115,7 +119,7 @@ module.exports = function() {
 		var mapSizeX = getMapSizeX();
 		var emptyRow = [];
 		for(var i = 0;i<mapSizeX;i++){
-			emptyRow.push(tileInspector.getNewEmptyTile());
+			emptyRow.push(tileFactory.getNewEmptyTile());
 		}
 		return emptyRow;
 	}
@@ -130,12 +134,16 @@ module.exports = function() {
 
 	function addLeftColumn(nbrOfColumns){
 		for(var i = 0;i<map.length;i++){
-			map[i].unshift(tileInspector.getNewEmptyTile());
+			for(var j = 0;j<nbrOfColumns;j++){
+				map[i].unshift(tileFactory.getNewEmptyTile());
+			}
 		}
 	}
 	function addRightColumn(nbrOfColumns){
 		for(var i = 0;i<map.length;i++){
-			map[i].push(tileInspector.getNewEmptyTile());
+			for(var j = 0;j<nbrOfColumns;j++){
+				map[i].push(tileFactory.getNewEmptyTile());
+			}
 		}
 	}
 
@@ -161,8 +169,10 @@ module.exports = function() {
 	};
 	//removeIf(production)
 
+	api._test = {};
 	api._test.add = add;
 	api._test.get = get;
+	api._test.set = set;
 	api._test.addAtFreePosition = addAtFreePosition;
 	api._test.findFreePosition = findFreePosition;
 	api._test.getRandomAngle = getRandomAngle;
@@ -179,8 +189,6 @@ module.exports = function() {
 	api._test.addLeftColumn = addLeftColumn;
 	api._test.addRightColumn = addRightColumn;
 	api._test.copyToPosition = copyToPosition;
-
-
 	//endRemoveIf(production)
 
     return api;
