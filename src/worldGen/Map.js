@@ -3,19 +3,21 @@ module.exports = function() {
 	var map = [];
 	var tileInspector = require('./TileInspector.js');
 	var tileFactory = require('./TileFactory.js');
+	var random = require('./Random.js').getUniqueFunction('Map');
 
 	function add(mapPart){
 		addAtFreePosition(mapPart);
 	}
+
 	function get(){
 		return map;
 	}
+
 	function set(newMap){
 		map = newMap;
 	}
 
 	// private functions
-
 	function addAtFreePosition(mapPart){
 		var sizeXY = {x:mapPart[0].length,y:mapPart.length};
 		var pointXY = findFreePosition(sizeXY);
@@ -32,7 +34,7 @@ module.exports = function() {
 	}
 
 	function getRandomAngle(){
-
+		return random()*(Math.PI*2);
 	}
 	function isPositionFree(pointXY,sizeXY){
 		var flooredPoint = getFloorPoint(pointXY);
@@ -56,7 +58,7 @@ module.exports = function() {
 		return area==0;
 	}
 	function isInBounds(pointXY){
-		return map.length>0 && pointXY.x<map[0].length && pointXY.x>0 && pointXY.y<map.length && pointXY.y>0;
+		return map.length>0 && pointXY.x<map[0].length && pointXY.x>=0 && pointXY.y<map.length && pointXY.y>=0;
 	}
 
 	function movePointByAngle(pointXY,angle){
@@ -165,7 +167,8 @@ module.exports = function() {
 
 	var api = {
 		add:add,
-		get:get
+		get:get,
+		set:set
 	};
 	//removeIf(production)
 
