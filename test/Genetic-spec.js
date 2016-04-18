@@ -6,7 +6,19 @@ import immutable from 'immutable';
 describe('Genetic', ()=> {
 
 	let rnd = 0;
+	let template = {};
+
 	beforeEach(()=>{
+		rnd = 0;
+		template = {
+			dna: [0, 0, 0, 0],
+			dnaMin: 0,
+			dnaMax: 10,
+			dnaStep: 1,
+			fitness: 0,
+			anomalyAdd: 0.00 // optional
+		};
+		Genetic.setTemplate(template);
 		Genetic.__Rewire__('Random',{
 			get:() => rnd
 		});
@@ -30,15 +42,7 @@ describe('Genetic', ()=> {
 	});
 
 	it('should create proper dna',()=>{
-		let template = {
-			dna: [0, 0, 0, 0],
-			dnaMin: 0,
-			dnaMax: 10,
-			dnaStep: 1,
-			fitness: 0,
-			anomalyAdd: 0.00 // optional
-		};
-		Genetic.setTemplate(template);
+
 		let dna = Genetic.createDna();
 		expect(dna.dna.toString()).toBe([0,0,0,0].toString());
 
@@ -48,9 +52,25 @@ describe('Genetic', ()=> {
 
 		rnd = 0.5;
 		template.dnaStep = 2;
-		Genetic.setTemplate(template);
 		dna = Genetic.createDna();
 		expect(dna.dna.toString()).toBe([6,6,6,6].toString());
+	});
+
+	it('should mutate at correct position',()=>{
+		let dna ={dna:[10, 10, 10, 10]};
+		Genetic.mutate(dna);
+		expect(dna.dna.toString()).toBe([0,10,10,10].toString());
+
+		rnd = 0.9999999;
+		dna ={dna:[0, 0, 0, 0]};
+		Genetic.mutate(dna);
+		expect(dna.dna.toString()).toBe([0,0,0,10].toString());
+	});
+	it('test run',()=>{
+		Genetic.setParams(10,()=>2);
+		const gen = Genetic.runOneGeneration();
+		expect(gen.dna.toString()).toBe([0,0,0,0].toString());
+		expect(gen.fitness).toBe(2);
 	});
 
 });
